@@ -567,7 +567,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
           )}
           
           {/* Show enhanced loading state while streaming */}
-          {isLoading && messages[messages.length - 1]?.role === 'user' && (
+          {isLoading && (
             <EnhancedLoadingIndicator 
               searchStatus={searchStatus}
               isLoading={isLoading}

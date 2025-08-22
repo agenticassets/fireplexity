@@ -290,7 +290,6 @@ export async function POST(request: Request) {
                 - Begin by noting the sources you used to answer the query
                 - For simple questions, give direct, concise answers
                 - For complex topics, provide detailed explanations only when needed
-                - Match the user's energy level - be brief if they're brief
                 
                 FORMAT:
                 - Use markdown for readability when appropriate
@@ -338,7 +337,7 @@ export async function POST(request: Request) {
           
           // Stream the text generation using Groq's Kimi K2 Instruct model
           const result = streamText({
-            model: groq('openai/gpt-oss-20b'),
+            model: groq('llama-3.1-8b-instant'),
             messages: aiMessages,
             temperature: 0.7,
             maxRetries: 2
