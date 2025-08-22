@@ -156,15 +156,64 @@ export async function POST(request: Request) {
             };
           }).filter((item: any) => item.url) || []
           
-          // Apply site filtering to results
-          sources = filterSearchResults(sources, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
-              'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
-              'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
-              'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
-              'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
-              'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org']
-          })
+          // Quality scoring system for source ranking
+          const scoreSourceQuality = (source: any) => {
+            let score = 0;
+            const url = source.url.toLowerCase();
+            const title = source.title?.toLowerCase() || '';
+            const content = source.content?.toLowerCase() || '';
+            const description = source.description?.toLowerCase() || '';
+            
+            // High-quality indicators
+            if (url.includes('.edu') || url.includes('academic')) score += 10;
+            if (url.includes('.gov') || url.includes('government')) score += 10;
+            if (url.includes('research') || url.includes('report')) score += 8;
+            if (url.includes('data') || url.includes('statistics')) score += 6;
+            if (title.includes('research') || title.includes('report')) score += 5;
+            if (content.includes('methodology') || content.includes('data source')) score += 4;
+            if (description.includes('research') || description.includes('analysis')) score += 3;
+            
+            // Major real estate and financial institutions
+            if (url.includes('cbre.com') || url.includes('jll.com') || url.includes('colliers.com')) score += 7;
+            if (url.includes('greenstreet.com') || url.includes('costar.com') || url.includes('trepp.com')) score += 7;
+            if (url.includes('prea.org') || url.includes('uli.org') || url.includes('ncreif.org')) score += 6;
+            if (url.includes('blackstone.com') || url.includes('brookfield.com') || url.includes('hines.com')) score += 6;
+            if (url.includes('jpmorgan.com') || url.includes('blackrock.com') || url.includes('pimco.com')) score += 6;
+            
+            // News and financial sources
+            if (url.includes('reuters.com') || url.includes('bloomberg.com') || url.includes('wsj.com')) score += 5;
+            if (url.includes('ft.com') || url.includes('cnbc.com') || url.includes('marketwatch.com')) score += 5;
+            if (url.includes('bis.org') || url.includes('imf.org') || url.includes('worldbank.org')) score += 8;
+            
+            // Content quality indicators
+            if (content.length > 1000) score += 2; // Substantial content
+            if (content.includes('2024') || content.includes('2023')) score += 3; // Recent content
+            if (content.includes('percent') || content.includes('%') || content.includes('million') || content.includes('billion')) score += 2; // Data-rich content
+            
+            // Low-quality indicators
+            if (url.includes('blog') && !url.includes('research')) score -= 3;
+            if (url.includes('forum') || url.includes('reddit') || url.includes('quora')) score -= 5;
+            if (title.includes('opinion') || title.includes('personal')) score -= 2;
+            if (content.length < 200) score -= 3; // Very short content
+            
+            return score;
+          };
+
+          // Score and sort sources by quality
+          sources = sources
+            .map(source => ({ ...source, qualityScore: scoreSourceQuality(source) }))
+            .sort((a, b) => b.qualityScore - a.qualityScore)
+            .slice(0, 8); // Keep top 8 highest quality sources
+
+          // Apply site filtering as fallback (less restrictive) - DISABLED FOR NOW
+          // sources = filterSearchResults(sources, {
+          //   includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
+          //     'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
+          //     'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
+          //     'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
+          //     'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
+          //     'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org']
+          // })
 
           // Transform news results - now with correct schema
           newsResults = newsData.map((item: any) => {
@@ -178,23 +227,23 @@ export async function POST(request: Request) {
             };
           }).filter((item: any) => item.url) || []
           
-          // Apply site filtering to news results
-          newsResults = filterSearchResults(newsResults, {
-            // Allow major news outlets plus real estate specific sources
-            includeDomains: [
-              // Real Estate Specific
-              'cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'naiop.org',
-              'costar.com', 'bisnow.com', 'therealdeal.com', 'nreionline.com', 'globest.com',
-              'housingwire.com', 'realtor.org', 'irei.com', 'trepp.com',
-              // Major News Outlets
-              'reuters.com', 'bloomberg.com', 'wsj.com', 'ft.com', 'cnbc.com', 'cnn.com',
-              'bbc.com', 'apnews.com', 'npr.org', 'marketwatch.com', 'yahoo.com',
-              // Business News
-              'businessinsider.com', 'forbes.com', 'fortune.com', 'economist.com',
-              // Financial Data
-              'fred.stlouisfed.org', 'bis.org', 'imf.org', 'worldbank.org'
-            ]
-          })
+          // Apply site filtering to news results - DISABLED FOR NOW
+          // newsResults = filterSearchResults(newsResults, {
+          //   // Allow major news outlets plus real estate specific sources
+          //   includeDomains: [
+          //     // Real Estate Specific
+          //     'cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'naiop.org',
+          //     'costar.com', 'bisnow.com', 'therealdeal.com', 'nreionline.com', 'globest.com',
+          //     'housingwire.com', 'realtor.org', 'irei.com', 'trepp.com',
+          //     // Major News Outlets
+          //     'reuters.com', 'bloomberg.com', 'wsj.com', 'ft.com', 'cnbc.com', 'cnn.com',
+          //     'bbc.com', 'apnews.com', 'npr.org', 'marketwatch.com', 'yahoo.com',
+          //     // Business News
+          //     'businessinsider.com', 'forbes.com', 'fortune.com', 'economist.com',
+          //     // Financial Data
+          //     'fred.stlouisfed.org', 'bis.org', 'imf.org', 'worldbank.org'
+          //   ]
+          // })
 
           // Transform image results - now with correct schema from direct API
           imageResults = imagesData.map((item: any) => {
@@ -213,15 +262,15 @@ export async function POST(request: Request) {
             };
           }).filter(Boolean) || []  // Filter out null entries
           
-          // Apply site filtering to image results
-          imageResults = filterSearchResults(imageResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
-              'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
-              'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
-              'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
-              'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
-              'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org']
-          })
+          // Apply site filtering to image results - DISABLED FOR NOW
+          // imageResults = filterSearchResults(imageResults, {
+          //   includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
+          //     'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
+          //     'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
+          //     'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
+          //     'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
+          //     'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org']
+          // })
           
           // Send all sources as a persistent data part
           writer.write({
@@ -281,10 +330,21 @@ export async function POST(request: Request) {
                 - Only use math syntax for actual mathematical equations if absolutely necessary
                 
                 RESPONSE CONTENT:
-                - Assume the user is a real estate professional and provide answers that are relevant to their industry
-                - Assume the user is searching for real estate industry research and insights on the topic of the query
-                - Provide answers that are accurate and up to date
-                - Provide answers that are practical and actionable
+                SOURCE QUALITY REQUIREMENTS:
+                - Prioritize sources from established research institutions, industry reports, and authoritative publications
+                - Prefer sources with clear authorship, publication dates, and institutional backing
+                - Give higher weight to sources from: academic institutions, government agencies, industry associations, major consulting firms, and established financial institutions
+                - Avoid sources that appear to be user-generated content, forums, or low-quality blogs
+                - When citing sources, mention the credibility of the source (e.g., "According to CBRE's 2024 Global Real Estate Market Outlook..." vs "A blog post suggests...")
+                
+                RESPONSE CONTENT:
+                - Assume the user is a real estate professional seeking authoritative industry insights
+                - Always cite the most credible sources first
+                - If multiple sources conflict, acknowledge the disagreement and explain why
+                - Provide context about the source's credibility when relevant
+                - Include publication dates and source types in your citations
+                - Prioritize web sources that are up to date
+                - Provide a response that is practical and actionable
 
                 RESPONSE STYLE:
                 - Begin by noting the sources you used to answer the query
@@ -337,9 +397,9 @@ export async function POST(request: Request) {
           
           // Stream the text generation using Groq's Kimi K2 Instruct model
           const result = streamText({
-            model: groq('llama-3.1-8b-instant'),
+            model: groq('openai/gpt-oss-120b'),
             messages: aiMessages,
-            temperature: 0.7,
+            temperature: 0.3,
             maxRetries: 2
           })
           

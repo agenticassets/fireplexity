@@ -591,8 +591,8 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
             </div>
           )}
           
-          {/* Show enhanced loading state while streaming, waiting for response, or submitting */}
-          {(isLoading || isWaitingForResponse || isSubmitting) && (
+          {/* Show enhanced loading state while streaming, waiting for response, or submitting - but hide when results appear */}
+          {(isLoading || isWaitingForResponse || isSubmitting) && sources.length === 0 && newsResults.length === 0 && imageResults.length === 0 && (
             <EnhancedLoadingIndicator 
               searchStatus={searchStatus || (isWaitingForResponse ? 'Starting search...' : isSubmitting ? 'Preparing request...' : '')}
               isLoading={isLoading || isWaitingForResponse || isSubmitting}
