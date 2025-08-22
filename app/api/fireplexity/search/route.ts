@@ -115,7 +115,12 @@ export async function POST(request: Request) {
               limit: 12,
               scrapeOptions: getScrapeOptionsWithFiltering({
                 // Uncomment and modify these to limit search to specific sites:
-                includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com'],
+                includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
+                  'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
+                  'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
+                  'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
+                  'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
+                  'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org'],
                 // includeDomains: ['wikipedia.org', 'github.com'],
                 // excludeDomains: ['facebook.com', 'twitter.com'],
                 // includeUrls: ['https://news.ycombinator.com/*'],
@@ -153,7 +158,12 @@ export async function POST(request: Request) {
           
           // Apply site filtering to results
           sources = filterSearchResults(sources, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
+              'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
+              'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
+              'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
+              'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
+              'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org']
           })
 
           // Transform news results - now with correct schema
@@ -170,7 +180,11 @@ export async function POST(request: Request) {
           
           // Apply site filtering to news results
           newsResults = filterSearchResults(newsResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org','cbre.com', 'greenstreet.com', 'prea.org', 'naiop.org', 'uli.org', 
+'costar.com', 'rei.to', 'pwc.com', 'deloitte.com', 'realestatejournal.wsj.com', 
+'globest.com', 'bisnow.com', 'therealdeal.com', 'nreionline.com', 'realtor.org', 
+'fred.stlouisfed.org', 'harvard.edu', 'zillow.com', 'redfin.com', 'housingwire.com'
+]
           })
 
           // Transform image results - now with correct schema from direct API
@@ -192,7 +206,12 @@ export async function POST(request: Request) {
           
           // Apply site filtering to image results
           imageResults = filterSearchResults(imageResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
+              'blackstone.com', 'brookfield.com', 'nuveen.com', 'pgim.com', 'metlife.com', 
+              'aecrealestate.com', 'heglobal.com', 'pimco.com', 'gic.com.sg', 'oxfordproperties.com', 
+              'apg-am.nl', 'tishmanspeyer.com', 'hines.com', 'blackrock.com', 
+              'cambridgeassociates.com', 'preqin.com', 'pitchbook.com', 'ft.com/real-estate', 
+              'reuters.com/markets/real-estate', 'bis.org', 'imf.org', 'worldbank.org']
           })
           
           // Send all sources as a persistent data part
@@ -252,6 +271,11 @@ export async function POST(request: Request) {
                 - Write ALL numbers as plain text: "1 million" NOT "$1$ million", "50%" NOT "$50\\%$"
                 - Only use math syntax for actual mathematical equations if absolutely necessary
                 
+                RESPONSE CONTENT:
+                - Assume the user is a real estate professional and provide answers that are relevant to their industry.
+                - Provide answers that are accurate and up to date.
+                - Provide answers that are practical and actionable.
+
                 RESPONSE STYLE:
                 - For greetings (hi, hello), respond warmly and ask how you can help
                 - For simple questions, give direct, concise answers

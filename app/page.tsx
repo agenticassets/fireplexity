@@ -249,17 +249,15 @@ export default function FireplexityPage() {
       <header className="px-4 sm:px-6 lg:px-8 py-1 mt-2">
         <div className="max-w-[1216px] mx-auto flex items-center justify-between">
           <Link
-            href="https://firecrawl.dev"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
             className="flex items-center"
           >
             <Image 
-              src="/firecrawl-wordmark.svg" 
-              alt="Firecrawl Logo" 
-              width={90} 
-              height={24}
-              className="h-6 w-auto"
+              src="/orbis-intel.svg" 
+              alt="Orbis Intel Logo" 
+              width={120} 
+              height={32}
+              className="h-8 w-auto"
             />
           </Link>
         </div>
@@ -270,14 +268,14 @@ export default function FireplexityPage() {
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-[3rem] lg:text-[4rem] font-medium tracking-tight leading-tight">
             <span className="text-[#ff4d00] block">
-              Fireplexity v2
+              Orbis Intel
             </span>
             <span className="text-[#262626] dark:text-white block text-[3rem] lg:text-[4rem] font-medium -mt-2">
-              Search & Scrape
+              Real Estate Research
             </span>
           </h1>
           <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
-            Multi-source search with AI-powered insights, news, and images
+            AI-powered real estate research with multi-source insights, news, and market data
           </p>
         </div>
       </div>
@@ -318,7 +316,7 @@ export default function FireplexityPage() {
           <DialogHeader>
             <DialogTitle>Firecrawl API Key Required</DialogTitle>
             <DialogDescription>
-              To use Fireplexity search, you need a Firecrawl API key. Get one for free at{' '}
+              To use Orbis Intel search, you need a Firecrawl API key. Get one for free at{' '}
               <a 
                 href="https://www.firecrawl.dev" 
                 target="_blank" 

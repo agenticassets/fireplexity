@@ -3,8 +3,8 @@ import "./globals.css";
 import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
-  title: "Fireplexity v2 - AI-Powered Multi-Source Search",
-  description: "Advanced search with AI-powered insights, news, images, and real-time information",
+  title: "Orbis - Industry Intelligence",
+  description: "Advanced search with AI-powered insights, built specificallyfor real estate professionals",
 };
 
 export default function RootLayout({
