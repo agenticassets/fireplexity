@@ -112,7 +112,7 @@ export async function POST(request: Request) {
             body: JSON.stringify({
               query: query,
               sources: ['web', 'news', 'images'],
-              limit: 12,
+              limit: 6,
               scrapeOptions: getScrapeOptionsWithFiltering({
                 // Uncomment and modify these to limit search to specific sites:
                 includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com', 'affiniuscapital.com', 
@@ -273,11 +273,12 @@ export async function POST(request: Request) {
                 
                 RESPONSE CONTENT:
                 - Assume the user is a real estate professional and provide answers that are relevant to their industry.
+                - Assume the user is searching for real estate industry research and insights on the topic of the query.
                 - Provide answers that are accurate and up to date.
                 - Provide answers that are practical and actionable.
 
                 RESPONSE STYLE:
-                - For greetings (hi, hello), respond warmly and ask how you can help
+                - Begin by noting the sources you used to answer the query.
                 - For simple questions, give direct, concise answers
                 - For complex topics, provide detailed explanations only when needed
                 - Match the user's energy level - be brief if they're brief
