@@ -4,6 +4,7 @@ import { streamText, generateText, createUIMessageStream, createUIMessageStreamR
 import type { ModelMessage } from 'ai'
 import { detectCompanyTicker } from '@/lib/company-ticker-map'
 import { selectRelevantContent } from '@/lib/content-selection'
+import { getScrapeOptionsWithFiltering, filterSearchResults, DEFAULT_ALLOWED_DOMAINS, DEFAULT_BLOCKED_DOMAINS } from '@/lib/site-filtering'
 
 export async function POST(request: Request) {
   const requestId = Math.random().toString(36).substring(7)
@@ -112,11 +113,14 @@ export async function POST(request: Request) {
               query: query,
               sources: ['web', 'news', 'images'],
               limit: 6,
-              scrapeOptions: {
-                formats: ['markdown'],
-                onlyMainContent: true,
-                maxAge: 86400000  // 24 hours in milliseconds
-              }
+              scrapeOptions: getScrapeOptionsWithFiltering({
+                // Uncomment and modify these to limit search to specific sites:
+                includeDomains: ['cbre.com', 'greenstreet.com'],
+                // includeDomains: ['wikipedia.org', 'github.com'],
+                // excludeDomains: ['facebook.com', 'twitter.com'],
+                // includeUrls: ['https://news.ycombinator.com/*'],
+                // excludeUrls: ['https://spam-site.com/*']
+              })
             })
           })
 
@@ -146,6 +150,13 @@ export async function POST(request: Request) {
               siteName: new URL(item.url).hostname
             };
           }).filter((item: any) => item.url) || []
+          
+          // Apply site filtering to results
+          sources = filterSearchResults(sources, {
+            // Uncomment to enable filtering:
+            // includeDomains: ['wikipedia.org', 'github.com'],
+            // excludeDomains: ['facebook.com', 'twitter.com']
+          })
 
           // Transform news results - now with correct schema
           newsResults = newsData.map((item: any) => {
