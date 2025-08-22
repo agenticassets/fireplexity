@@ -112,10 +112,10 @@ export async function POST(request: Request) {
             body: JSON.stringify({
               query: query,
               sources: ['web', 'news', 'images'],
-              limit: 6,
+              limit: 12,
               scrapeOptions: getScrapeOptionsWithFiltering({
                 // Uncomment and modify these to limit search to specific sites:
-                includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com'],
+                includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com'],
                 // includeDomains: ['wikipedia.org', 'github.com'],
                 // excludeDomains: ['facebook.com', 'twitter.com'],
                 // includeUrls: ['https://news.ycombinator.com/*'],
@@ -153,7 +153,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to results
           sources = filterSearchResults(sources, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com']
           })
 
           // Transform news results - now with correct schema
@@ -170,7 +170,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to news results
           newsResults = filterSearchResults(newsResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com']
           })
 
           // Transform image results - now with correct schema from direct API
@@ -192,7 +192,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to image results
           imageResults = filterSearchResults(imageResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com', 'costar.com', 'msci.com', 'moodyscre.com', 'compstak.com', 'realcapanalytics.com']
           })
           
           // Send all sources as a persistent data part
@@ -245,7 +245,7 @@ export async function POST(request: Request) {
             aiMessages = [
               {
                 role: 'system',
-                content: `You are a friendly assistant that helps users find information.
+                content: `You are an expert real estate research assistant that helps users find information.
 
                 CRITICAL FORMATTING RULE:
                 - NEVER use LaTeX/math syntax ($...$) for regular numbers in your response
@@ -275,7 +275,7 @@ export async function POST(request: Request) {
             aiMessages = [
               {
                 role: 'system',
-                content: `You are a friendly assistant continuing our conversation.
+                content: `You are an expert real estate research assistant continuing our conversation.
 
                 CRITICAL FORMATTING RULE:
                 - NEVER use LaTeX/math syntax ($...$) for regular numbers in your response
@@ -303,7 +303,7 @@ export async function POST(request: Request) {
           
           // Stream the text generation using Groq's Kimi K2 Instruct model
           const result = streamText({
-            model: groq('moonshotai/kimi-k2-instruct'),
+            model: groq('openai/gpt-oss-120b'),
             messages: aiMessages,
             temperature: 0.7,
             maxRetries: 2
