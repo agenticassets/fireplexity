@@ -244,7 +244,7 @@ export default function FireplexityPage() {
   const isChatActive = hasSearched || messages.length > 0
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-[#d1dff3]">
       {/* Header with logo - fixed width to prevent jumping */}
       <header className="px-4 sm:px-6 lg:px-8 py-1 mt-2">
         <div className="max-w-[1216px] mx-auto flex items-center justify-between">
@@ -266,15 +266,15 @@ export default function FireplexityPage() {
       {/* Hero section - matching other pages */}
       <div className={`px-4 sm:px-6 lg:px-8 pt-16 pb-8 ${isChatActive ? 'hidden' : 'block'}`}>
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-[3rem] lg:text-[4rem] font-medium tracking-tight leading-tight">
-            <span className="text-[#ff4d00] block">
-              Orbis Intel
+          <h1 className="text-[3rem] lg:text-[4rem] font-eb-garamond font-medium tracking-tight leading-tight">
+            <span className="text-[#f93838] block">
+              CRE Intelligence
             </span>
-            <span className="text-[#262626] dark:text-white block text-[3rem] lg:text-[4rem] font-medium -mt-2">
-              Real Estate Research
+            <span className="text-[#262626] dark:text-white block text-[3rem] lg:text-[4rem] font-eb-garamond font-medium -mt-2">
+              Research, Insights, and News
             </span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-lg font-nunito text-zinc-600 dark:text-zinc-400">
             AI-powered real estate research with multi-source insights, news, and market data
           </p>
         </div>
@@ -314,7 +314,7 @@ export default function FireplexityPage() {
       <Dialog open={showApiKeyModal} onOpenChange={setShowApiKeyModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Firecrawl API Key Required</DialogTitle>
+            <DialogTitle className="font-eb-garamond">Firecrawl API Key Required</DialogTitle>
             <DialogDescription>
               To use Orbis Intel search, you need a Firecrawl API key. Get one for free at{' '}
               <a 

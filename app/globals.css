@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Google Fonts */
+@layer base {
+  :root {
+    --font-eb-garamond: 'EB Garamond', serif;
+    --font-nunito-sans: 'Nunito Sans', sans-serif;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -379,6 +387,15 @@
 
   .animate-shimmer {
     animation: shimmer 2s infinite;
+  }
+
+  /* Font utilities */
+  .font-eb-garamond {
+    font-family: var(--font-eb-garamond);
+  }
+  
+  .font-nunito {
+    font-family: var(--font-nunito-sans);
   }
 }
 
