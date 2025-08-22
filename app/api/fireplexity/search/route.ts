@@ -153,9 +153,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to results
           sources = filterSearchResults(sources, {
-            // Uncomment to enable filtering:
-            // includeDomains: ['wikipedia.org', 'github.com'],
-            // excludeDomains: ['facebook.com', 'twitter.com']
+            includeDomains: ['cbre.com', 'greenstreet.com']
           })
 
           // Transform news results - now with correct schema
@@ -169,6 +167,11 @@ export async function POST(request: Request) {
               image: item.imageUrl  // Direct API returns 'imageUrl' for news thumbnails
             };
           }).filter((item: any) => item.url) || []
+          
+          // Apply site filtering to news results
+          newsResults = filterSearchResults(newsResults, {
+            includeDomains: ['cbre.com', 'greenstreet.com']
+          })
 
           // Transform image results - now with correct schema from direct API
           imageResults = imagesData.map((item: any) => {
@@ -186,6 +189,11 @@ export async function POST(request: Request) {
               position: item.position
             };
           }).filter(Boolean) || []  // Filter out null entries
+          
+          // Apply site filtering to image results
+          imageResults = filterSearchResults(imageResults, {
+            includeDomains: ['cbre.com', 'greenstreet.com']
+          })
           
           // Send all sources as a persistent data part
           writer.write({
