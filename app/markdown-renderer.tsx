@@ -30,7 +30,7 @@ export function MarkdownRenderer({ content, sources }: MarkdownRendererProps) {
           return (
             <sup
               key={`citation-${match[1]}-${index}`}
-              className="citation text-orange-600 cursor-pointer hover:text-orange-700 text-[0.65rem] ml-0.5"
+              className="citation text-[#f93838] cursor-pointer hover:text-[#f93838] text-[0.65rem] ml-0.5"
               data-citation={match[1]}
             >
               [{match[1]}]

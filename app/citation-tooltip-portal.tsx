@@ -64,7 +64,7 @@ export function CitationTooltip({ sources }: CitationTooltipProps) {
       }}
     >
       <div 
-        className="bg-white dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl p-3 max-w-xs cursor-pointer hover:border-orange-400 dark:hover:border-orange-500 transition-colors relative"
+        className="bg-white dark:bg-zinc-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl p-3 max-w-xs cursor-pointer hover:border-[#f93838] dark:hover:border-[#f93838] transition-colors relative"
         onClick={() => {
           if (content?.url) {
             window.open(content.url, '_blank', 'noopener,noreferrer')

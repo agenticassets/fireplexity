@@ -345,16 +345,11 @@ export async function POST(request: Request) {
                 - Include publication dates and source types in your citations
                 - Prioritize web sources that are up to date
                 - Provide a response that is practical and actionable
-
-                RESPONSE STYLE:
-                - Begin by noting the sources you used to answer the query
-                - For simple questions, give direct, concise answers
-                - For complex topics, provide detailed explanations only when needed
                 
                 FORMAT:
+                - Organize your response in a clear and organized manner
                 - Use markdown for readability when appropriate
                 - Keep responses natural and conversational
-                - Cite sources within the response
                 - Include citations inline as [1], [2], etc. when referencing specific sources
                 - Citations should correspond to the source order (first source = [1], second = [2], etc.)
                 - Use the format [1] not CITATION_1 or any other format`

@@ -51,7 +51,7 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
             animationFillMode: 'forwards'
           }}
         >
-          <Card className="h-full p-4 bg-white dark:bg-zinc-800 border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-500 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+          <Card className="h-full p-4 bg-white dark:bg-zinc-800 border-gray-200 dark:border-gray-700 hover:border-[#f93838] dark:hover:border-[#f93838] transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
             {/* Image/Thumbnail */}
             {result.image && isValidImageUrl(result.image) && (
               <div className="relative h-32 mb-3 rounded-lg overflow-hidden bg-gray-100 dark:bg-zinc-700">
@@ -93,7 +93,7 @@ export function SearchResults({ results, isLoading }: SearchResultsProps) {
             </div>
 
             {/* Title */}
-            <h3 className="font-semibold text-sm mb-1 line-clamp-2 text-gray-900 dark:text-gray-100 group-hover:text-orange-600 dark:group-hover:text-orange-400">
+            <h3 className="font-semibold text-sm mb-1 line-clamp-2 text-gray-900 dark:text-gray-100 group-hover:text-[#f93838] dark:group-hover:text-[#f93838]">
               {result.title}
             </h3>
 

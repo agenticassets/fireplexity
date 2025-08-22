@@ -252,7 +252,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
                                   href={result.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-md h-28"
+                                  className="group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 hover:border-[#f93838] dark:hover:border-[#f93838] hover:shadow-md h-28"
                                 >
                                   {/* Background image */}
                                   {result.image && (
@@ -303,7 +303,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
                                     </div>
                                     
                                     {/* Title */}
-                                    <h3 className="font-medium text-xs text-gray-900 dark:text-white line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 leading-tight">
+                                    <h3 className="font-medium text-xs text-gray-900 dark:text-white line-clamp-2 group-hover:text-[#f93838] dark:group-hover:text-[#f93838] leading-tight">
                                       {result.title}
                                     </h3>
                                     
@@ -370,11 +370,11 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
                                 <button
                                   key={qIndex}
                                   onClick={() => handleFollowUpClick(question)}
-                                  className="w-full text-left p-2 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-md group"
+                                  className="w-full text-left p-2 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#f93838] dark:hover:border-[#f93838] hover:shadow-md group"
                                 >
                                   <div className="flex items-start gap-2">
-                                    <Plus className="h-4 w-4 text-gray-400 group-hover:text-orange-500 flex-shrink-0 mt-0.5" />
-                                    <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 break-words">
+                                    <Plus className="h-4 w-4 text-gray-400 group-hover:text-[#f93838] flex-shrink-0 mt-0.5" />
+                                    <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-[#f93838] dark:group-hover:text-[#f93838] break-words">
                                       {question}
                                     </span>
                                   </div>
@@ -456,7 +456,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
                     href={result.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-md h-28"
+                    className="group relative overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 hover:border-[#f93838] dark:hover:border-[#f93838] hover:shadow-md h-28"
                   >
                     {/* Background image */}
                     {result.image && (
@@ -507,7 +507,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
                       </div>
                       
                       {/* Title */}
-                      <h3 className="font-medium text-xs text-gray-900 dark:text-white line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 leading-tight">
+                      <h3 className="font-medium text-xs text-gray-900 dark:text-white line-clamp-2 group-hover:text-[#f93838] dark:group-hover:text-[#f93838] leading-tight">
                         {result.title}
                       </h3>
                       
@@ -611,11 +611,11 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
                   <button
                     key={index}
                     onClick={() => handleFollowUpClick(question)}
-                    className="w-full text-left p-2 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-md group"
+                    className="w-full text-left p-2 bg-white dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#f93838] dark:hover:border-[#f93838] hover:shadow-md group"
                   >
                     <div className="flex items-center gap-2">
-                      <Plus className="h-4 w-4 text-gray-400 group-hover:text-orange-500 flex-shrink-0" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400">
+                      <Plus className="h-4 w-4 text-gray-400 group-hover:text-[#f93838] flex-shrink-0" />
+                      <span className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-[#f93838] dark:group-hover:text-[#f93838]">
                         {question}
                       </span>
                     </div>
@@ -631,7 +631,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
       </div>
 
       {/* Fixed input at bottom */}
-      <div className="fixed lg:absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white dark:from-zinc-900 dark:via-zinc-900 to-transparent pt-4 pb-4 sm:pt-6 sm:pb-6 z-30">
+      <div className="fixed lg:absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#d1dff3] via-[#d1dff3] dark:from-zinc-900 dark:via-zinc-900 to-transparent pt-4 pb-4 sm:pt-6 sm:pb-6 z-30">
         <div className="max-w-2xl mx-auto px-3 sm:px-4 lg:px-8">
           <form onSubmit={handleFormSubmit} ref={formRef}>
             <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-3 focus-within:border-gray-900 dark:focus-within:border-gray-100 transition-colors">

@@ -321,7 +321,7 @@ export default function FireplexityPage() {
                 href="https://www.firecrawl.dev" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-orange-600 hover:text-orange-700 underline"
+                className="text-[#f93838] hover:text-[#f93838] underline"
               >
                 firecrawl.dev
               </a>

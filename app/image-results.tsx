@@ -50,7 +50,7 @@ export function ImageResults({ results, isLoading }: ImageResultsProps) {
             className="group block flex-shrink-0 w-[200px] sm:w-auto cursor-pointer"
             onClick={() => setSelectedImage({ url: result.thumbnail || '', title: result.title })}
           >
-            <Card className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-800 border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-500 hover:shadow-md h-full">
+            <Card className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-zinc-800 border-gray-200 dark:border-gray-700 hover:border-[#f93838] dark:hover:border-[#f93838] hover:shadow-md h-full">
               {result.thumbnail && isValidImageUrl(result.thumbnail) ? (
                 <Image
                   src={result.thumbnail}
