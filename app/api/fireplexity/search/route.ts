@@ -115,7 +115,7 @@ export async function POST(request: Request) {
               limit: 6,
               scrapeOptions: getScrapeOptionsWithFiltering({
                 // Uncomment and modify these to limit search to specific sites:
-                includeDomains: ['cbre.com', 'greenstreet.com'],
+                includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com'],
                 // includeDomains: ['wikipedia.org', 'github.com'],
                 // excludeDomains: ['facebook.com', 'twitter.com'],
                 // includeUrls: ['https://news.ycombinator.com/*'],
@@ -153,7 +153,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to results
           sources = filterSearchResults(sources, {
-            includeDomains: ['cbre.com', 'greenstreet.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com']
           })
 
           // Transform news results - now with correct schema
@@ -170,7 +170,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to news results
           newsResults = filterSearchResults(newsResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com']
           })
 
           // Transform image results - now with correct schema from direct API
@@ -192,7 +192,7 @@ export async function POST(request: Request) {
           
           // Apply site filtering to image results
           imageResults = filterSearchResults(imageResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com']
+            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'afire.org', 'nar.realtor', 'irei.com', 'jll.com', 'cushmanwakefield.com', 'trepp.com', 'jpmorgan.com', 'colliers.com']
           })
           
           // Send all sources as a persistent data part
