@@ -26,7 +26,7 @@ export function SearchComponent({ handleSubmit, input, handleInputChange, isLoad
         <button
           type="submit"
           disabled={isLoading || !input || input.trim() === ''}
-          className="absolute right-2 p-0 flex items-center justify-center rounded-lg bg-[#ff4d00] hover:bg-[#e64400] disabled:bg-gray-300 disabled:cursor-not-allowed active:scale-95 group"
+          className="absolute right-2 p-0 flex items-center justify-center rounded-lg bg-[#f93838] hover:bg-[#e64400] disabled:bg-gray-300 disabled:cursor-not-allowed active:scale-95 group"
         >
           <div className="w-[60px] h-[38px] flex items-center justify-center">
             {isLoading ? (
