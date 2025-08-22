@@ -111,7 +111,7 @@ export async function POST(request: Request) {
             },
             body: JSON.stringify({
               query: query,
-              sources: ['web', 'news', 'images'],
+              sources: ['web', 'news'],
               limit: 6,
               scrapeOptions: getScrapeOptionsWithFiltering({
                 // Uncomment and modify these to limit search to specific sites:
@@ -180,11 +180,20 @@ export async function POST(request: Request) {
           
           // Apply site filtering to news results
           newsResults = filterSearchResults(newsResults, {
-            includeDomains: ['cbre.com', 'greenstreet.com', 'prea.org','cbre.com', 'greenstreet.com', 'prea.org', 'naiop.org', 'uli.org', 
-'costar.com', 'rei.to', 'pwc.com', 'deloitte.com', 'realestatejournal.wsj.com', 
-'globest.com', 'bisnow.com', 'therealdeal.com', 'nreionline.com', 'realtor.org', 
-'fred.stlouisfed.org', 'harvard.edu', 'zillow.com', 'redfin.com', 'housingwire.com'
-]
+            // Allow major news outlets plus real estate specific sources
+            includeDomains: [
+              // Real Estate Specific
+              'cbre.com', 'greenstreet.com', 'prea.org', 'ncreif.org', 'uli.org', 'naiop.org',
+              'costar.com', 'bisnow.com', 'therealdeal.com', 'nreionline.com', 'globest.com',
+              'housingwire.com', 'realtor.org', 'irei.com', 'trepp.com',
+              // Major News Outlets
+              'reuters.com', 'bloomberg.com', 'wsj.com', 'ft.com', 'cnbc.com', 'cnn.com',
+              'bbc.com', 'apnews.com', 'npr.org', 'marketwatch.com', 'yahoo.com',
+              // Business News
+              'businessinsider.com', 'forbes.com', 'fortune.com', 'economist.com',
+              // Financial Data
+              'fred.stlouisfed.org', 'bis.org', 'imf.org', 'worldbank.org'
+            ]
           })
 
           // Transform image results - now with correct schema from direct API
@@ -272,13 +281,13 @@ export async function POST(request: Request) {
                 - Only use math syntax for actual mathematical equations if absolutely necessary
                 
                 RESPONSE CONTENT:
-                - Assume the user is a real estate professional and provide answers that are relevant to their industry.
-                - Assume the user is searching for real estate industry research and insights on the topic of the query.
-                - Provide answers that are accurate and up to date.
-                - Provide answers that are practical and actionable.
+                - Assume the user is a real estate professional and provide answers that are relevant to their industry
+                - Assume the user is searching for real estate industry research and insights on the topic of the query
+                - Provide answers that are accurate and up to date
+                - Provide answers that are practical and actionable
 
                 RESPONSE STYLE:
-                - Begin by noting the sources you used to answer the query.
+                - Begin by noting the sources you used to answer the query
                 - For simple questions, give direct, concise answers
                 - For complex topics, provide detailed explanations only when needed
                 - Match the user's energy level - be brief if they're brief
@@ -286,6 +295,7 @@ export async function POST(request: Request) {
                 FORMAT:
                 - Use markdown for readability when appropriate
                 - Keep responses natural and conversational
+                - Cite sources within the response
                 - Include citations inline as [1], [2], etc. when referencing specific sources
                 - Citations should correspond to the source order (first source = [1], second = [2], etc.)
                 - Use the format [1] not CITATION_1 or any other format`
@@ -328,7 +338,7 @@ export async function POST(request: Request) {
           
           // Stream the text generation using Groq's Kimi K2 Instruct model
           const result = streamText({
-            model: groq('openai/gpt-oss-120b'),
+            model: groq('openai/gpt-oss-20b'),
             messages: aiMessages,
             temperature: 0.7,
             maxRetries: 2

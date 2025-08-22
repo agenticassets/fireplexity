@@ -13,6 +13,7 @@ import { MarkdownRenderer } from './markdown-renderer'
 import { StockChart } from './stock-chart'
 import { NewsResults } from './news-results'
 import { ImageResults } from './image-results'
+import { EnhancedLoadingIndicator } from '@/components/enhanced-loading-indicator'
 
 interface MessageData {
   sources: SearchResult[]
@@ -565,20 +566,12 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
             </div>
           )}
           
-          {/* Show loading state while streaming */}
+          {/* Show enhanced loading state while streaming */}
           {isLoading && messages[messages.length - 1]?.role === 'user' && (
-            <div className="opacity-0 animate-fade-up [animation-duration:500ms] [animation-fill-mode:forwards]">
-              <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="h-4 w-4 text-black dark:text-white" />
-                <h2 className="text-sm font-medium text-gray-700 dark:text-gray-300">Answer</h2>
-              </div>
-              <div>
-                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Generating answer...</span>
-                </div>
-              </div>
-            </div>
+            <EnhancedLoadingIndicator 
+              searchStatus={searchStatus}
+              isLoading={isLoading}
+            />
           )}
 
           {/* Follow-up Questions - Show after answer completes */}
