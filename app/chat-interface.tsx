@@ -51,6 +51,7 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   // Simple theme detection based on document class
   const theme = typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? 'dark' : 'light'
@@ -91,9 +92,25 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
     }, 100)
   }, [messages, sources, followUpQuestions])
 
+  // Clear isSubmitting when streaming starts or when we get a response
+  useEffect(() => {
+    if (isLoading || searchStatus || (messages.length > 0 && messages[messages.length - 1]?.role === 'assistant')) {
+      setIsSubmitting(false)
+    }
+  }, [isLoading, searchStatus, messages])
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!input.trim() || isLoading) return
+    
+    // Set immediate loading state
+    setIsSubmitting(true)
+    
+    // Auto-clear isSubmitting after 10 seconds as a fallback
+    setTimeout(() => {
+      setIsSubmitting(false)
+    }, 10000)
+    
     handleSubmit(e)
     
     // Scroll to bottom after submitting
@@ -108,6 +125,14 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
   }
 
   const handleFollowUpClick = (question: string) => {
+    // Set immediate loading state
+    setIsSubmitting(true)
+    
+    // Auto-clear isSubmitting after 10 seconds as a fallback
+    setTimeout(() => {
+      setIsSubmitting(false)
+    }, 10000)
+    
     // Set the input and immediately submit
     handleInputChange({ target: { value: question } } as React.ChangeEvent<HTMLTextAreaElement>)
     // Submit the form after a brief delay to ensure input is set
@@ -566,11 +591,11 @@ export function ChatInterface({ messages, sources, newsResults, imageResults, fo
             </div>
           )}
           
-          {/* Show enhanced loading state while streaming */}
-          {isLoading && (
+          {/* Show enhanced loading state while streaming, waiting for response, or submitting */}
+          {(isLoading || isWaitingForResponse || isSubmitting) && (
             <EnhancedLoadingIndicator 
-              searchStatus={searchStatus}
-              isLoading={isLoading}
+              searchStatus={searchStatus || (isWaitingForResponse ? 'Starting search...' : isSubmitting ? 'Preparing request...' : '')}
+              isLoading={isLoading || isWaitingForResponse || isSubmitting}
             />
           )}
 
